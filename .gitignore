@@ -3,3 +3,4 @@ node_modules/
 uploads/
 *-key.json
 .idea/
+credentials/

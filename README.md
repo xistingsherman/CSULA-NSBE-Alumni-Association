@@ -84,6 +84,7 @@ The database runs on the same server as the app, so `MYSQL_HOST` stays `localhos
 
    If `GCS_BUCKET` is left empty, resumes are saved in the app's `uploads` folder on the server instead. That's fine for testing, but use the bucket for the real site.
 6. Click **Run NPM Install**, then **Restart**.
+   To check the database and bucket settings, run `npm run check` in cPanel **Terminal** (after entering the app's virtual environment, see step 4). It says exactly what's wrong if something fails.
 7. Turn on **SSL/TLS** (AutoSSL / Let's Encrypt) for the domain so the site loads over `https://`. Sign-in cookies require it in production.
 
 ### 4. Make the first admin
