@@ -7,4 +7,4 @@
 //   addJoinRequest
 const config = require('../config');
 
-module.exports = config.dbClient === 'memory' ? require('./memory') : require('./oracle');
+module.exports = config.dbClient === 'memory' ? require('./memory') : require('./mysql');

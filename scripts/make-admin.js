@@ -11,7 +11,7 @@ const email = (process.argv[2] || '').trim().toLowerCase();
     process.exit(1);
   }
   if (config.dbClient === 'memory') {
-    console.error('make-admin only works with the Oracle database (DB_CLIENT=oracle).');
+    console.error('make-admin only works with the MySQL database (DB_CLIENT=mysql).');
     process.exit(1);
   }
   await store.init();

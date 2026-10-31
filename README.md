@@ -6,7 +6,7 @@ The public website plus a members-only directory, in one Node.js app.
 - **Directory accounts:** alumni create an account, a board member approves it, then they can search the directory.
 - **Profiles:** job, location, what they're open to, a bio (up to 1,500 characters), and an optional resume (PDF, up to 5 MB).
 - **Privacy:** members choose whether they're listed, whether their email is shown, and whether other members can download their resume. Nothing in the directory is visible without signing in.
-- **Data:** Oracle Database (Oracle Cloud Always Free works). Resumes are stored in a private Google Cloud Storage bucket.
+- **Data:** the MySQL database included with cPanel hosting. Resumes are stored in a private Google Cloud Storage bucket.
 
 ## What's where
 
@@ -16,12 +16,12 @@ The public website plus a members-only directory, in one Node.js app.
 | `src/routes.js` | All `/api/...` endpoints |
 | `src/auth.js` | Passwords, sign-in sessions, access checks |
 | `src/validate.js` | Cleans form input; decides what other members can see |
-| `src/store/oracle.js` | Oracle queries |
+| `src/store/mysql.js` | MySQL queries |
 | `src/store/memory.js` | Throwaway sample data for local testing |
 | `src/files.js` | Resume storage (GCP bucket, or `./uploads` when testing) |
 | `src/mail.js` | Outgoing email |
 | `public/` | The web pages, styles and browser scripts |
-| `sql/` | Oracle setup scripts |
+| `sql/schema.sql` | Creates the MySQL tables |
 | `scripts/make-admin.js` | Gives a board member admin access |
 
 ## Try it on your computer
@@ -36,17 +36,17 @@ npm start
 
 Open http://localhost:5173. With `DB_CLIENT=memory` it uses sample members that reset on every restart, emails are printed in the terminal instead of sent, and with `GCS_BUCKET` empty, uploaded resumes are saved in `./uploads`. To see the directory and the Approvals page, set `TEMP_ADMIN_EMAIL` and `TEMP_ADMIN_PASSWORD` in `.env` (any email and a 10+ character password), restart, and sign in with them.
 
-## Put it online: Oracle Cloud + Google Cloud Storage + MochaHost cPanel
+## Put it online: MochaHost cPanel + Google Cloud Storage
 
-### 1. Set up the Oracle database
+### 1. Set up the MySQL database (in cPanel)
 
-1. In Oracle Cloud, create an **Autonomous Database** (Always Free is fine).
-2. Under **Network**, add an **access control list** entry with your MochaHost server's IP address (cPanel shows it under *General Information* as the shared IP; MochaHost support can confirm the outgoing IP). Then turn off **Mutual TLS (mTLS) authentication required**, so the app can connect without a wallet file.
-3. Click **Database connection**, choose **TLS** authentication, and copy a connection string (the `_low` one is fine). That's your `ORACLE_CONNECT_STRING`.
-4. Open **Database Actions > SQL** as ADMIN and run:
-   - `sql/create-user.sql`, after changing the password in it (that's your `ORACLE_PASSWORD`; the user is `nsbe_app`).
-   - `ALTER SESSION SET CURRENT_SCHEMA = nsbe_app;` and then `sql/schema.sql`.
-   - Already created the tables before bios and resumes were added? Run `sql/add-bio-resume.sql` instead of recreating them.
+1. In cPanel, open **MySQL Databases**.
+2. **Create New Database**, e.g. `nsbe`. cPanel adds your account name in front, e.g. `youruser_nsbe`. That full name is your `MYSQL_DATABASE`.
+3. Under **MySQL Users**, add a user, e.g. `nsbe_app` (becomes `youruser_nsbe_app`, your `MYSQL_USER`). Use the password generator for a long random password; that's your `MYSQL_PASSWORD`.
+4. Under **Add User To Database**, add that user to the database and tick **ALL PRIVILEGES**.
+5. Open **phpMyAdmin**, click your database on the left, then **Import** and upload `sql/schema.sql`. You should see three tables: `members`, `sessions` and `join_requests`.
+
+The database runs on the same server as the app, so `MYSQL_HOST` stays `localhost`, and nothing needs to be opened in a firewall.
 
 ### 2. Set up the Google Cloud Storage bucket for resumes
 
@@ -62,7 +62,7 @@ Open http://localhost:5173. With `DB_CLIENT=memory` it uses sample members that 
 
 ### 3. Set up the app in cPanel
 
-1. **Check with MochaHost** that your account can reach Oracle Cloud on port **1522** (outgoing).
+1. **Check with MochaHost** that your app can make outgoing HTTPS requests (port 443) to `storage.googleapis.com`, for resume uploads.
 2. In cPanel, create an email account for the site (e.g. `alumni@yourdomain.org`). Its outgoing mail server is usually `mail.yourdomain.org`, port 465.
 3. Upload everything **except** `node_modules/`, `uploads/` and `.env` to a folder outside `public_html`, e.g. `/home/youruser/nsbe-alumni`. Upload `gcp-key.json` into that same folder (not inside `public/`) and set its permissions to `600`.
 4. Open **Setup Node.js App** > **Create Application**:
@@ -73,9 +73,9 @@ Open http://localhost:5173. With `DB_CLIENT=memory` it uses sample members that 
    - Application startup file: `app.js`
 5. In the app folder, create a file named `.env` (copy `.env.example`) with your real values:
    - `NODE_ENV=production`
-   - `DB_CLIENT=oracle`
+   - `DB_CLIENT=mysql`
    - `SITE_URL=https://yourdomain.org`
-   - `ORACLE_USER=nsbe_app`, `ORACLE_PASSWORD`, `ORACLE_CONNECT_STRING`
+   - `MYSQL_HOST=localhost`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` (from step 1)
    - `GCS_BUCKET=your-bucket-name` and `GOOGLE_APPLICATION_CREDENTIALS=/home/youruser/nsbe-alumni/gcp-key.json` (the full path)
    - `BOARD_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`
    - `TEMP_ADMIN_EMAIL` and `TEMP_ADMIN_PASSWORD` only if you want the temporary admin login (see step 4). Otherwise delete those lines.
@@ -110,4 +110,4 @@ Open http://localhost:5173. With `DB_CLIENT=memory` it uses sample members that 
 
 - **Password reset:** members who forget their password are told to email the board for now. A self-service "forgot password" email can be added later.
 - **Placeholders:** the home page events, stats, spotlight quotes, board names, social links, and the `alumni@example.org` address (also on the sign-in page) need real content.
-- **Backups:** Oracle Autonomous Database keeps automatic backups, but also export the `members` table now and then. Oracle may stop Always Free databases that go unused for a while, so check Oracle's current terms.
+- **Backups:** check that your MochaHost plan backs up databases, and also download a copy now and then (phpMyAdmin > your database > **Export**). The export contains members' personal details, so store it somewhere private.
