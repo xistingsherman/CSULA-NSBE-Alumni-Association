@@ -23,6 +23,8 @@ The public website plus a members-only directory, in one Node.js app.
 | `public/` | The web pages, styles and browser scripts |
 | `sql/schema.sql` | Creates the MySQL tables |
 | `scripts/make-admin.js` | Gives a board member admin access |
+| `scripts/check-connections.js` | `npm run check`: tests the database and bucket settings |
+| `postman/` | Postman collection and environments for testing the API |
 
 ## Try it on your computer
 
@@ -35,6 +37,23 @@ npm start
 ```
 
 Open http://localhost:5173. With `DB_CLIENT=memory` it uses sample members that reset on every restart, emails are printed in the terminal instead of sent, and with `GCS_BUCKET` empty, uploaded resumes are saved in `./uploads`. To see the directory and the Approvals page, set `TEMP_ADMIN_EMAIL` and `TEMP_ADMIN_PASSWORD` in `.env` (any email and a 10+ character password), restart, and sign in with them.
+
+## Test the API with Postman
+
+The `postman/` folder has a collection that runs the whole member flow in order: sign-up, profile edits, resume upload, admin approval, privacy settings, sign-out and a rejection. Each request checks its own result (61 checks in total).
+
+1. In Postman, click **Import** and select all three `.json` files in `postman/`.
+2. Pick the **Local** or **Production** environment (top right) and fill in `adminEmail` and `adminPassword`: the `TEMP_ADMIN_*` login, or any admin account.
+3. Open the collection's ⋯ menu > **Run collection**, and run it with the default order.
+4. The two upload requests use `postman/sample-resume.pdf` and `postman/not-a-pdf.txt`. If Postman says it can't find them, open each upload request, go to **Body**, and pick the file again, or set **Settings > General > Working directory** to the `postman` folder.
+
+Or from the command line (Node 16+):
+
+```bash
+npx newman@6.2.1 run postman/CSULA-NSBE-Alumni.postman_collection.json --working-dir postman --env-var baseUrl=http://localhost:5173 --env-var adminEmail=you@example.com --env-var adminPassword=your-admin-password
+```
+
+Against **Production** the run leaves behind real rows: two test members (emails starting `postman.`) and one join request. It also sends the board a sign-up email. Delete the rows in phpMyAdmin afterwards. Each run uses new random test emails, so you can run it again.
 
 ## Put it online: MochaHost cPanel + Google Cloud Storage
 
