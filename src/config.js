@@ -6,11 +6,13 @@ module.exports = {
   port: env.PORT || 3000,
   production: env.NODE_ENV === 'production',
   siteUrl: (env.SITE_URL || 'http://localhost:3000').replace(/\/$/, ''),
-  dbClient: env.DB_CLIENT || 'oracle',
-  oracle: {
-    user: env.ORACLE_USER,
-    password: env.ORACLE_PASSWORD,
-    connectString: env.ORACLE_CONNECT_STRING,
+  dbClient: env.DB_CLIENT || 'mysql',
+  mysql: {
+    host: env.MYSQL_HOST || 'localhost',
+    port: Number(env.MYSQL_PORT || 3306),
+    user: env.MYSQL_USER,
+    password: env.MYSQL_PASSWORD,
+    database: env.MYSQL_DATABASE,
   },
   boardEmail: env.BOARD_EMAIL,
   smtp: {

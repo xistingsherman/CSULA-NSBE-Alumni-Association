@@ -15,6 +15,7 @@ const wrap = (fn) => (req, res, next) => fn(req, res, next).catch(next);
 // One PDF per upload, held in memory (max 5 MB) until it's checked and sent to storage.
 const upload = multer({
   storage: multer.memoryStorage(),
+  defParamCharset: 'utf8', // browsers send file names as UTF-8 ("Résumé.pdf"), not latin1
   limits: { fileSize: config.resumeMaxBytes, files: 1, fields: 5 },
 }).single('resume');
 
