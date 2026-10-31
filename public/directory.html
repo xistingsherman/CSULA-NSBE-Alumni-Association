@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Member Directory · Cal State LA NSBE Alumni Association</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Cal State LA NSBE Alumni Association home">
+        <span class="brand-mark">NSBE</span>
+        <span class="brand-text">Cal State LA<br><small>Alumni Association</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html#about">About</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="index.html#events">Events</a>
+        <a href="directory.html" aria-current="page">Directory</a>
+        <a href="account.html">My Profile</a>
+        <a href="admin.html" data-admin-only hidden>Approvals</a>
+        <a href="#" class="btn btn-small btn-outline-light" data-signout>Sign Out</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="dir-hero">
+      <div class="container">
+        <p class="eyebrow">Members only</p>
+        <h1 class="dir-title">Member Directory</h1>
+        <p class="lead">Find fellow Cal State LA NSBE alumni by name, company, major, graduating class, or city.</p>
+      </div>
+    </section>
+
+    <div class="sample-banner" id="notice" role="status" hidden></div>
+
+    <section class="section dir-section">
+      <div class="container dir-layout" id="dir-layout" hidden>
+        <aside class="filters" aria-label="Filters">
+          <label class="filter-search">
+            <span class="sr-only">Search members</span>
+            <input type="search" id="q" placeholder="Search name, company, bio…" autocomplete="off">
+          </label>
+          <label>Major<select id="f-major"><option value="">All majors</option></select></label>
+          <label>Industry<select id="f-industry"><option value="">All industries</option></select></label>
+          <label>Graduated<select id="f-decade"><option value="">Any year</option></select></label>
+          <label>Location<select id="f-city"><option value="">Anywhere</option></select></label>
+          <fieldset>
+            <legend>Open to</legend>
+            <label class="check"><input type="checkbox" value="Mentoring" name="open"> Mentoring</label>
+            <label class="check"><input type="checkbox" value="Referrals" name="open"> Referrals</label>
+            <label class="check"><input type="checkbox" value="Coffee chats" name="open"> Coffee chats</label>
+          </fieldset>
+          <label class="check"><input type="checkbox" id="f-resume"> Has a resume</label>
+          <button type="button" id="reset" class="link-btn">Clear filters</button>
+        </aside>
+
+        <div>
+          <div class="results-bar">
+            <p id="count" role="status" aria-live="polite"></p>
+            <label class="sort">Sort
+              <select id="sort">
+                <option value="name">Name (A–Z)</option>
+                <option value="newest">Newest grads</option>
+                <option value="oldest">Earliest grads</option>
+              </select>
+            </label>
+          </div>
+          <ul id="results" class="members"></ul>
+          <div id="empty" class="empty" hidden>
+            <h3>No members match</h3>
+            <p>Try a different search or clear your filters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="profile" class="profile-dialog" aria-labelledby="p-name">
+    <button class="close" aria-label="Close" data-close>×</button>
+    <div id="profile-body"></div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-text light">Cal State LA NSBE Alumni Association</p>
+        <p class="muted">Directory info is for members only. Please don't share it outside the association.</p>
+      </div>
+      <nav class="footer-links" aria-label="Directory links">
+        <a href="account.html">Edit my profile</a>
+        <a href="account.html#privacy">Privacy settings</a>
+        <a href="index.html">Back to site</a>
+      </nav>
+    </div>
+    <p class="container copyright">© <span id="year"></span> Cal State LA NSBE Alumni Association</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="members.js"></script>
+  <script src="directory.js"></script>
+</body>
+</html>
