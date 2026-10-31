@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In · Cal State LA NSBE Alumni Association</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="login">
+
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Cal State LA NSBE Alumni Association home">
+        <span class="brand-mark">NSBE</span>
+        <span class="brand-text">Cal State LA<br><small>Alumni Association</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#events">Events</a>
+        <a href="signup.html" class="btn btn-small">Create Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-card">
+      <p class="eyebrow">Members only</p>
+      <h1>Sign in to the directory</h1>
+      <form id="login-form" class="join-form" novalidate>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+        <button type="submit" class="btn">Sign In</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="auth-links">New here? <a href="signup.html">Create a directory account</a></p>
+      <!-- TODO: replace with your real board email -->
+      <p class="muted">Forgot your password? Email the board at <a href="mailto:alumni@example.org">alumni@example.org</a>.</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="members.js"></script>
+</body>
+</html>

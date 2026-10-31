@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Account · Cal State LA NSBE Alumni Association</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="signup">
+
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Cal State LA NSBE Alumni Association home">
+        <span class="brand-mark">NSBE</span>
+        <span class="brand-text">Cal State LA<br><small>Alumni Association</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#events">Events</a>
+        <a href="login.html" class="btn btn-small">Sign In</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-card wide">
+      <p class="eyebrow">Member directory</p>
+      <h1>Create your directory account</h1>
+      <p>The directory is for Cal State LA NSBE alumni. A board member will confirm you're an alum before your account is turned on.</p>
+
+      <form id="signup-form" class="join-form" novalidate>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <div class="row">
+          <label>Password<input type="password" name="password" required minlength="10" autocomplete="new-password"></label>
+          <label>Confirm password<input type="password" name="confirm" required minlength="10" autocomplete="new-password"></label>
+        </div>
+        <p class="muted hint">At least 10 characters.</p>
+        <div data-profile-fields></div>
+        <button type="submit" class="btn">Create Account</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div id="signup-done" class="done" hidden>
+        <h2>Thanks! You're almost in.</h2>
+        <p>A board member will review your account, and you'll get an email once it's approved. In the meantime you can <a href="login.html">sign in</a> to update your profile.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="members.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+// SAMPLE DATA ONLY: made-up people and companies, loaded by the memory store for local testing.
+const base = { linkedinUrl: 'https://www.linkedin.com/', listed: true };
+const sampleBios = {
+  Jordan: 'I design structural components for satellite systems. Happy to talk with anyone curious about aerospace or making the jump from school to industry.',
+  Marcus: 'Fifteen years in public infrastructure, mostly transit and water projects across LA County.\n\nI love connecting alumni with civil engineering firms that are hiring.',
+  Darnell: 'Leading grid engineering teams in Houston. Former chapter president. Always up for helping someone think through their next career move.',
+  Alicia: 'Operations and lean manufacturing. Ask me about switching from engineering to management.',
+};
+
+module.exports = [
+  { firstName: 'Jordan', lastName: 'Ellis', gradYear: 2021, major: 'Mechanical Engineering', title: 'Design Engineer', company: 'Pacific Aero Systems', industry: 'Aerospace', city: 'Los Angeles, CA', openTo: ['Mentoring', 'Coffee chats'], email: 'jordan@example.com', shareEmail: true },
+  { firstName: 'Simone', lastName: 'Carter', gradYear: 2016, major: 'Computer Science', title: 'Senior Software Engineer', company: 'Brightline Software', industry: 'Software & Tech', city: 'San Francisco, CA', openTo: ['Referrals', 'Mentoring'], email: 'simone@example.com', shareEmail: false },
+  { firstName: 'Marcus', lastName: 'Reid', gradYear: 2009, major: 'Civil Engineering', title: 'Project Manager', company: 'Westbridge Infrastructure', industry: 'Construction & Infrastructure', city: 'Los Angeles, CA', openTo: ['Mentoring'], email: 'marcus@example.com', shareEmail: true },
+  { firstName: 'Aaliyah', lastName: 'Brooks', gradYear: 2023, major: 'Electrical Engineering', title: 'Hardware Engineer I', company: 'Voltaic Devices', industry: 'Electronics & Hardware', city: 'San Diego, CA', openTo: ['Coffee chats'], email: 'aaliyah@example.com', shareEmail: false },
+  { firstName: 'Darnell', lastName: 'Okafor', gradYear: 2004, major: 'Electrical Engineering', title: 'Director of Engineering', company: 'Sunrise Grid Energy', industry: 'Energy', city: 'Houston, TX', openTo: ['Mentoring', 'Referrals'], email: 'darnell@example.com', shareEmail: true },
+  { firstName: 'Keisha', lastName: 'Morgan', gradYear: 2012, major: 'Computer Science', title: 'Product Manager', company: 'Harbor Health Tech', industry: 'Healthcare', city: 'Seattle, WA', openTo: ['Referrals', 'Coffee chats'], email: 'keisha@example.com', shareEmail: false, linkedinUrl: '' },
+  { firstName: 'Andre', lastName: 'Thompson', gradYear: 2018, major: 'Mechanical Engineering', title: 'Manufacturing Engineer', company: 'Coastline Motors', industry: 'Automotive', city: 'Long Beach, CA', openTo: ['Referrals'], email: 'andre@example.com', shareEmail: true },
+  { firstName: 'Nia', lastName: 'Washington', gradYear: 2014, major: 'Chemical Engineering', title: 'Process Engineer', company: 'Golden State Biologics', industry: 'Healthcare', city: 'Pasadena, CA', openTo: ['Mentoring', 'Coffee chats'], email: 'nia@example.com', shareEmail: false },
+  { firstName: 'Terrence', lastName: 'Hall', gradYear: 1998, major: 'Civil Engineering', title: 'Principal & Founder', company: 'Hall Structural Group', industry: 'Construction & Infrastructure', city: 'Atlanta, GA', openTo: ['Mentoring'], email: 'terrence@example.com', shareEmail: true },
+  { firstName: 'Brianna', lastName: 'Lewis', gradYear: 2020, major: 'Computer Engineering', title: 'Embedded Software Engineer', company: 'Pacific Aero Systems', industry: 'Aerospace', city: 'Los Angeles, CA', openTo: ['Coffee chats', 'Referrals'], email: 'brianna@example.com', shareEmail: false },
+  { firstName: 'Isaiah', lastName: 'Grant', gradYear: 2010, major: 'Computer Science', title: 'Engineering Manager', company: 'Cloudhaven', industry: 'Software & Tech', city: 'Austin, TX', openTo: ['Referrals', 'Mentoring'], email: 'isaiah@example.com', shareEmail: true },
+  { firstName: 'Tiana', lastName: 'Mitchell', gradYear: 2022, major: 'Civil Engineering', title: 'Transportation Engineer', company: 'Metro Region Transit', industry: 'Government & Public Sector', city: 'Los Angeles, CA', openTo: ['Coffee chats'], email: 'tiana@example.com', shareEmail: false },
+  { firstName: 'Calvin', lastName: 'Price', gradYear: 2007, major: 'Mechanical Engineering', title: 'Systems Engineering Lead', company: 'Orbital Edge', industry: 'Aerospace', city: 'Denver, CO', openTo: ['Mentoring'], email: 'calvin@example.com', shareEmail: false },
+  { firstName: 'Danielle', lastName: 'Foster', gradYear: 2019, major: 'Electrical Engineering', title: 'Grid Modernization Engineer', company: 'Sunrise Grid Energy', industry: 'Energy', city: 'Sacramento, CA', openTo: ['Referrals'], email: 'danielle@example.com', shareEmail: true, linkedinUrl: '' },
+  { firstName: 'Jamal', lastName: 'Henderson', gradYear: 2001, major: 'Computer Engineering', title: 'VP of Technology', company: 'Meridian Financial', industry: 'Finance', city: 'New York, NY', openTo: ['Mentoring', 'Coffee chats'], email: 'jamal@example.com', shareEmail: false },
+  { firstName: 'Alicia', lastName: 'Barnes', gradYear: 2015, major: 'Industrial Engineering', title: 'Operations Manager', company: 'Coastline Motors', industry: 'Automotive', city: 'Long Beach, CA', openTo: ['Coffee chats', 'Referrals', 'Mentoring'], email: 'alicia@example.com', shareEmail: true },
+].map((m) => ({ ...base, ...m, bio: sampleBios[m.firstName] || '' }));

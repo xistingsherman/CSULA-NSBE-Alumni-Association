@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile · Cal State LA NSBE Alumni Association</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="account">
+
+  <header class="site-header" id="top">
+    <div class="container nav">
+      <a href="index.html" class="brand" aria-label="Cal State LA NSBE Alumni Association home">
+        <span class="brand-mark">NSBE</span>
+        <span class="brand-text">Cal State LA<br><small>Alumni Association</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="nav-menu" class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="directory.html">Directory</a>
+        <a href="account.html" aria-current="page">My Profile</a>
+        <a href="admin.html" data-admin-only hidden>Approvals</a>
+        <a href="#" class="btn btn-small btn-outline-light" data-signout>Sign Out</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-card wide">
+      <p class="eyebrow">My profile</p>
+      <h1>Your directory profile</h1>
+      <p class="muted">Signed in as <strong id="account-email"></strong></p>
+      <div id="pending-notice" class="notice" hidden>
+        Your account is waiting for a board member's approval. You can finish your profile now, and you'll get an email when the directory opens up for you.
+      </div>
+
+      <div id="temp-notice" class="notice" hidden>
+        You're signed in with the <strong>temporary admin</strong> login. When you're done, remove TEMP_ADMIN_EMAIL and TEMP_ADMIN_PASSWORD from the app's settings and restart it to turn this login off.
+      </div>
+
+      <form id="account-form" class="join-form" novalidate hidden>
+        <div data-profile-fields></div>
+        <button type="submit" class="btn">Save Profile</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <section id="resume-section" class="resume-box" aria-labelledby="resume-heading" hidden>
+        <h2 id="resume-heading">Resume</h2>
+        <p class="muted">Share your resume with other members for referrals and job leads. PDF only, up to 5 MB. You can choose whether members can download it under Privacy above.</p>
+        <div class="resume-current">
+          <p id="resume-current">No resume uploaded yet.</p>
+          <div class="resume-actions">
+            <a id="resume-download" class="btn btn-small btn-outline" href="/api/me/resume" hidden>Download</a>
+            <button id="resume-remove" type="button" class="btn btn-small btn-outline" hidden>Remove</button>
+          </div>
+        </div>
+        <form id="resume-form" class="resume-form" novalidate>
+          <label>Choose a PDF<input type="file" name="resume" accept="application/pdf,.pdf"></label>
+          <button type="submit" class="btn btn-small">Upload Resume</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="members.js"></script>
+</body>
+</html>
