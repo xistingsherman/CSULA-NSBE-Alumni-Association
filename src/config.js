@@ -1,4 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+
+// Always read the .env next to app.js, whatever folder the server starts the app from.
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const env = process.env;
 
