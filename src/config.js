@@ -25,6 +25,7 @@ module.exports = {
     pass: env.SMTP_PASS,
   },
   mailFrom: env.MAIL_FROM || env.SMTP_USER,
+  mailReplyTo: env.MAIL_REPLY_TO || '',
   sessionDays: 30,
   // Resumes go to this GCP bucket. Leave empty to keep them in ./uploads (local testing only).
   // Credentials: GOOGLE_APPLICATION_CREDENTIALS = path to the service account's JSON key file.

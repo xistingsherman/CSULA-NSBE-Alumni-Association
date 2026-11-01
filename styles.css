@@ -146,15 +146,38 @@ img { max-width: 100%; }
 }
 .quote figcaption { display: flex; align-items: center; gap: 14px; font-size: .92rem; color: var(--muted); }
 .quote figcaption strong { display: block; color: var(--ink); font-size: 1rem; }
+/* Spotlight card with a full photo */
+.spotlight:has(.has-photo) { max-width: none; }
+.quote.is-active.has-photo { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+.spotlight-photo { width: 100%; height: auto; display: block; border-radius: var(--radius); box-shadow: var(--shadow); }
+.has-photo blockquote { font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
+@media (max-width: 760px) {
+  .quote.is-active.has-photo { grid-template-columns: 1fr; gap: 20px; }
+}
+
 .avatar {
   flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--gold);
   display: grid; place-items: center; font-family: Archivo, sans-serif; font-weight: 700;
 }
 .avatar.lg { width: 96px; height: 96px; font-size: 1.4rem; margin: 0 auto 14px; }
+img.avatar { display: block; object-fit: cover; border: 2px solid var(--gold); }
 .dots { display: flex; gap: 10px; margin-top: 32px; }
 .dots button { width: 12px; height: 12px; border-radius: 50%; border: 0; background: #d6cfbb; cursor: pointer; padding: 0; }
 .dots button[aria-selected="true"] { background: var(--gold-deep); width: 32px; border-radius: 6px; }
 @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Digital Archive */
+.archive-intro { color: var(--muted); max-width: 640px; }
+.archive-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 32px; }
+.archive-item { margin: 0; flex: calc(var(--ratio, 1) * 100) 1 calc(var(--ratio, 1) * 260px); }
+.archive-item.tall { --ratio: .75; }
+.archive-item.wide { --ratio: 1.333; }
+.archive-item.square { --ratio: 1; }
+.archive-item a { display: block; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.archive-item img { display: block; width: 100%; height: auto; transition: transform .3s; }
+.archive-item a:hover img, .archive-item a:focus-visible img { transform: scale(1.03); }
+.archive-item figcaption { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+.archive-item figcaption strong { display: block; color: var(--ink); font-size: 1rem; }
 
 /* Leadership */
 .people { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; margin-top: 40px; text-align: center; }

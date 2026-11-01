@@ -6,8 +6,16 @@ const files = require('./files');
 const v = require('./validate');
 const {
   hashPassword, verifyPassword, newToken, hashToken, setSessionCookie, clearSessionCookie,
-  requireSignedIn, requireApproved, requireAdmin, loginLimiter,
+  requireSignedIn, requireApproved, requireAdmin, makeLimiter, loginLimiter,
 } = require('./auth');
+
+// One confirmation email per address per day, so the forms can't be used to flood someone's inbox.
+const confirmLimiter = makeLimiter(1, 24 * 60 * 60 * 1000);
+const sendConfirmation = (to, subject, text) => {
+  if (confirmLimiter.blocked(to)) return;
+  confirmLimiter.fail(to);
+  mail.send({ to, subject, text: `${text}\n\n- Cal State LA NSBE Alumni Association\n${config.siteUrl}` });
+};
 
 // Lets async handlers pass errors to Express's error handler.
 const wrap = (fn) => (req, res, next) => fn(req, res, next).catch(next);
@@ -67,6 +75,12 @@ module.exports = (store) => {
         `Interested in: ${entry.interest || '-'}`,
       ].join('\n'),
     });
+    // Kept free of anything typed into the form, so it can't be used to send someone else a message.
+    sendConfirmation(entry.email, 'We received your request to join the Cal State LA NSBE Alumni Association',
+      'Thanks for signing up! The board has your request and will be in touch with event invites, '
+      + 'career opportunities and alumni news.\n\n'
+      + `Want to connect with other alumni? Create a member directory account: ${config.siteUrl}/signup.html\n\n`
+      + "If you didn't sign up, you can ignore this email.");
     res.json({ ok: true });
   }));
 
@@ -95,6 +109,11 @@ module.exports = (store) => {
       text: `${v.fullName(profile)} (${email}, ${profile.major} '${String(profile.gradYear).slice(2)}) `
         + `created a directory account.\n\nReview it here: ${config.siteUrl}/admin.html`,
     });
+    sendConfirmation(email, 'Your Cal State LA NSBE alumni directory account is waiting for approval',
+      'Thanks for creating a member directory account! A board member will review it, and we\'ll email you '
+      + 'as soon as it\'s approved.\n\n'
+      + `Meanwhile, you can sign in and finish your profile: ${config.siteUrl}/account.html\n\n`
+      + "If you didn't create this account, reply to this email and let us know.");
     res.status(201).json({ ok: true });
   }));
 

@@ -26,6 +26,7 @@
         <a href="#programs">Programs</a>
         <a href="#events">Events</a>
         <a href="#spotlight">Spotlight</a>
+        <a href="#archive">Archive</a>
         <a href="#leadership">Leadership</a>
         <!--<a href="directory.html">Directory</a> -->
         <a href="#join" class="btn btn-small">Join Us</a>
@@ -47,10 +48,10 @@
       </div>
       <div class="hero-stats container">
         <!-- TODO: replace with real numbers -->
-        <div><strong data-count="250">0</strong><span>Alumni in our network</span></div>
-        <div><strong data-count="40">0</strong><span>Companies represented</span></div>
+        <div><strong data-count="9">0</strong><span>Alumni in our network</span></div>
+        <div><strong data-count="6">0</strong><span>Companies represented</span></div>
         <div><strong data-count="12">0</strong><span>Events each year</span></div>
-        <div><strong data-count="30">0</strong><span>Graduating classes</span></div>
+        <div><strong data-count="8">0</strong><span>Graduating classes</span></div>
       </div>
     </section>
 
@@ -162,9 +163,12 @@
         <h2>Where our alumni are now</h2>
         <!-- TODO: replace with real alumni stories (get permission first) -->
         <div class="spotlight" data-carousel>
-          <figure class="quote is-active">
-            <blockquote>“NSBE at Cal State LA is where I learned to lead. Reconnecting with my classmates years later felt like coming home.”</blockquote>
-            <figcaption><span class="avatar">AA</span><span><strong>Alumni Name</strong>Mechanical Engineering, Class of 20XX · Aerospace Engineer</span></figcaption>
+          <figure class="quote is-active has-photo">
+            <img class="spotlight-photo" src="images/sean-atkins-northrop-grumman.jpg" alt="Derrick (Sean) Atkins smiling with arms crossed in front of a Northrop Grumman building" width="1200" height="829">
+            <div class="spotlight-text">
+              <blockquote>Promoted from Associate Circuit Design Engineer to Circuit Design Engineer at Northrop Grumman, after completing troubleshooting and testing on three flight-level satellite power units.</blockquote>
+              <figcaption><span><strong>Derrick (Sean) Atkins</strong>Electrical Engineering, Class of 2022 · Circuit Design Engineer, Northrop Grumman</span></figcaption>
+            </div>
           </figure>
           <figure class="quote">
             <blockquote>“A referral from a fellow alum landed me my current role. This network keeps opening doors.”</blockquote>
@@ -179,12 +183,39 @@
       </div>
     </section>
 
-    <!-- Leadership -->
+    <!-- Digital Archive -->
+    <section id="archive" class="section">
+      <div class="container">
+        <p class="eyebrow">Our history</p>
+        <h2>Digital Archive</h2>
+        <p class="archive-intro">Moments from conferences, events and chapter life. Have photos to add? Send them to the board.</p>
+        <!-- To add a photo: copy one <figure> below and give it the class "tall" (portrait, 3:4),
+             "wide" (landscape, 4:3) or "square", matching the photo, so each row lines up. -->
+        <div class="archive-grid">
+          <figure class="archive-item tall">
+            <a href="images/nsbe-conference-1.jpg" target="_blank" rel="noopener">
+              <img src="images/nsbe-conference-1.jpg" alt="A group of Cal State LA NSBE members posing on a hotel atrium staircase with arms crossed" width="960" height="1280" loading="lazy">
+            </a>
+            <!-- TODO: add the conference name, year and city -->
+            <figcaption><strong>NSBE Conference</strong>Cal State LA NSBE members</figcaption>
+          </figure>
+          <figure class="archive-item wide">
+            <a href="images/nsbe-conference-2.jpg" target="_blank" rel="noopener">
+              <img src="images/nsbe-conference-2.jpg" alt="Cal State LA NSBE members sitting together on a staircase at an NSBE conference, wearing conference badges" width="1280" height="960" loading="lazy">
+            </a>
+            <!-- TODO: add the conference name, year and city -->
+            <figcaption><strong>NSBE Conference</strong>Cal State LA NSBE members</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <!--
     <section id="leadership" class="section">
       <div class="container">
         <p class="eyebrow">Our board</p>
         <h2>Leadership</h2>
-        <!-- TODO: replace with your board members -->
         <div class="people">
           <div class="person"><span class="avatar lg">P</span><h3>Name</h3><p>President</p></div>
           <div class="person"><span class="avatar lg">VP</span><h3>Name</h3><p>Vice President</p></div>
@@ -192,6 +223,23 @@
           <div class="person"><span class="avatar lg">T</span><h3>Name</h3><p>Treasurer</p></div>
           <div class="person"><span class="avatar lg">M</span><h3>Name</h3><p>Mentorship Chair</p></div>
           <div class="person"><span class="avatar lg">O</span><h3>Name</h3><p>Outreach Chair</p></div>
+        </div>
+      </div>
+    </section>-->
+
+     <!-- Active Members -->
+    <section id="leadership" class="section">
+      <div class="container">
+        <p class="eyebrow">Active Members</p>
+        <h2>Leadership</h2>
+        <!-- TODO: replace with your board members -->
+        <div class="people">
+          <div class="person"><span class="avatar lg">ZS</span><h3>Zainab S.</h3><p>Computer Science<br>Class of '24</p></div>
+          <div class="person"><span class="avatar lg">SM</span><h3>Stewart M.</h3><p>Computer Science<br>Class of '23</p></div>
+          <div class="person"><img class="avatar lg" src="images/sean-atkins.jpg" alt="Sean A." width="96" height="96"><h3>Sean A.</h3><p>Electrical Engineering<br>Class of '22</p></div>
+          <div class="person"><span class="avatar lg">JR</span><h3>Jonathan R.</h3><p>Electrical Engineering<br>Class of 'XX</p></div>
+          <div class="person"><span class="avatar lg">EI</span><h3>Emmanuel I.</h3><p>Civil Engineering<br>Class of '23</p></div>
+          <div class="person"><span class="avatar lg">ZIW</span><h3>Zanobia IW</h3><p>Civil Engineering<br>Class of '19</p></div>
         </div>
       </div>
     </section>
@@ -215,7 +263,7 @@
           <p class="eyebrow">Get involved</p>
           <h2>Join the alumni network</h2>
           <p>Sign up to get event invites, career opportunities, and alumni news. Membership is open to all Cal State LA NSBE alumni.</p>
-          <p class="muted">Not an alum but want to partner, sponsor, or speak? Reach out at <a href="mailto:alumni@example.org">alumni@example.org</a>.</p>
+          <p class="muted">Not an alum but want to partner, sponsor, or speak? Reach out at <a href="mailto:info@csulansbealumni.org">info@csulansbealumni.org</a>.</p>
         </div>
         <!-- TODO: connect the form to a service (e.g. Formspree, Google Forms, Mailchimp) via the action attribute -->
         <form class="join-form" action="#" method="post" novalidate>
@@ -254,7 +302,7 @@
         <!-- TODO: add your real social links -->
         <a href="#">Instagram</a>
         <a href="#">LinkedIn</a>
-        <a href="mailto:alumni@example.org">Email</a>
+        <a href="mailto:info@csulansbealumni.org">Email</a>
         <a href="https://www.nsbe.org" target="_blank" rel="noopener">NSBE National</a>
       </nav>
     </div>
