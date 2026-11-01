@@ -2,7 +2,7 @@
 
 The public website plus a members-only directory, in one Node.js app.
 
-- **Public pages:** home page with the "Join the alumni network" form (saved and emailed to the board).
+- **Public pages:** home page with the "Join the alumni network" form (saved and emailed to the board; the person gets a confirmation email).
 - **Directory accounts:** alumni create an account, a board member approves it, then they can search the directory.
 - **Profiles:** job, location, what they're open to, a bio (up to 1,500 characters), and an optional resume (PDF, up to 5 MB).
 - **Privacy:** members choose whether they're listed, whether their email is shown, and whether other members can download their resume. Nothing in the directory is visible without signing in.
@@ -82,7 +82,7 @@ The database runs on the same server as the app, so `MYSQL_HOST` stays `localhos
 ### 3. Set up the app in cPanel
 
 1. **Check with MochaHost** that your app can make outgoing HTTPS requests (port 443) to `storage.googleapis.com`, for resume uploads.
-2. In cPanel, create an email account for the site (e.g. `alumni@yourdomain.org`). Its outgoing mail server is usually `mail.yourdomain.org`, port 465.
+2. In cPanel, create an email account the site sends from, e.g. `noreply@yourdomain.org` (`SMTP_USER`, and its password is `SMTP_PASS`). Its outgoing mail server is usually `mail.yourdomain.org`, port 465. Replies go to `MAIL_REPLY_TO` (e.g. `info@yourdomain.org`).
 3. Upload everything **except** `node_modules/`, `uploads/` and `.env` to a folder outside `public_html`, e.g. `/home/youruser/nsbe-alumni`. Upload `gcp-key.json` into that same folder (not inside `public/`) and set its permissions to `600`.
 4. Open **Setup Node.js App** > **Create Application**:
    - Node.js version: **20 or newer**
@@ -96,7 +96,7 @@ The database runs on the same server as the app, so `MYSQL_HOST` stays `localhos
    - `SITE_URL=https://yourdomain.org`
    - `MYSQL_HOST=localhost`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` (from step 1)
    - `GCS_BUCKET=your-bucket-name` and `GOOGLE_APPLICATION_CREDENTIALS=/home/youruser/nsbe-alumni/gcp-key.json` (the full path)
-   - `BOARD_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`
+   - `BOARD_EMAIL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_REPLY_TO`
    - `TEMP_ADMIN_EMAIL` and `TEMP_ADMIN_PASSWORD` only if you want the temporary admin login (see step 4). Otherwise delete those lines.
 
    Keep `.env` private: it holds your database and email passwords. In cPanel File Manager, set its permissions to `600`.
@@ -129,5 +129,5 @@ The database runs on the same server as the app, so `MYSQL_HOST` stays `localhos
 ## Still to do
 
 - **Password reset:** members who forget their password are told to email the board for now. A self-service "forgot password" email can be added later.
-- **Placeholders:** the home page events, stats, spotlight quotes, board names, social links, and the `alumni@example.org` address (also on the sign-in page) need real content.
+- **Placeholders:** the home page events, stats, spotlight quotes, board names, and social links need real content.
 - **Backups:** check that your MochaHost plan backs up databases, and also download a copy now and then (phpMyAdmin > your database > **Export**). The export contains members' personal details, so store it somewhere private.

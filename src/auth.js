@@ -72,26 +72,30 @@ function requireAdmin(req, res, next) {
   });
 }
 
-// Simple in-memory limiter for sign-in attempts: 10 failures per 15 minutes per IP + email.
-const attempts = new Map();
-const WINDOW_MS = 15 * 60 * 1000;
-const loginLimiter = {
-  blocked(key) {
-    const a = attempts.get(key);
-    return Boolean(a && a.resetAt > Date.now() && a.count >= 10);
-  },
-  fail(key) {
-    const a = attempts.get(key);
-    if (!a || a.resetAt <= Date.now()) attempts.set(key, { count: 1, resetAt: Date.now() + WINDOW_MS });
-    else a.count++;
-  },
-  clear(key) {
-    attempts.delete(key);
-  },
-};
+// Simple in-memory limiter: blocks a key once it has been counted `max` times within the window.
+function makeLimiter(max, windowMs) {
+  const attempts = new Map();
+  return {
+    blocked(key) {
+      const a = attempts.get(key);
+      return Boolean(a && a.resetAt > Date.now() && a.count >= max);
+    },
+    fail(key) {
+      const a = attempts.get(key);
+      if (!a || a.resetAt <= Date.now()) attempts.set(key, { count: 1, resetAt: Date.now() + windowMs });
+      else a.count++;
+    },
+    clear(key) {
+      attempts.delete(key);
+    },
+  };
+}
+
+// Sign-in attempts: 10 failures per 15 minutes per IP + email.
+const loginLimiter = makeLimiter(10, 15 * 60 * 1000);
 
 module.exports = {
   hashPassword, verifyPassword, newToken, hashToken,
   setSessionCookie, clearSessionCookie, loadMember,
-  requireSignedIn, requireApproved, requireAdmin, loginLimiter,
+  requireSignedIn, requireApproved, requireAdmin, makeLimiter, loginLimiter,
 };
