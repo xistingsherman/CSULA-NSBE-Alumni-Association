@@ -120,7 +120,7 @@ module.exports = (store) => {
   r.post('/api/login', wrap(async (req, res) => {
     const email = v.email(req.body.email);
     const password = typeof req.body.password === 'string' ? req.body.password : '';
-    const key = `${req.ip}|${email}`;
+    const key = `${req.clientIp}|${email}`;
     if (loginLimiter.blocked(key)) {
       return res.status(429).json({ error: 'Too many attempts. Please wait 15 minutes and try again.' });
     }

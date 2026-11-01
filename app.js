@@ -8,10 +8,12 @@ const store = require('./src/store');
 const routes = require('./src/routes');
 const { loadMember } = require('./src/auth');
 const { syncTempAdmin } = require('./src/temp-admin');
+const { clientIp } = require('./src/client-ip');
 
 const app = express();
 
 app.set('trust proxy', 1); // cPanel runs the app behind a proxy
+app.use(clientIp); // and Cloudflare sits in front of that
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
